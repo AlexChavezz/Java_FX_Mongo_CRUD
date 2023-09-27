@@ -22,7 +22,7 @@ public class Connection {
                 return doc.toJson();
             } else {
                 System.out.println("No matching documents found.");
-                return "User Not Found";
+                return null;
             }
         }
     }

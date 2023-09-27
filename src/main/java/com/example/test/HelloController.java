@@ -19,21 +19,23 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() {
         String userToFind = userInput.getText();
+        issueInput.setTextFill(Color.RED);
         if (userToFind.isEmpty()) {
             issueInput.setText("You need to write something..");
-            issueInput.setTextFill(Color.RED);
         } else {
             issueInput.setText("");
             Connection connection = new Connection();
             String response = connection.Connect(userToFind);
+            if (response == null){
+                issueInput.setText("Error, user not found");
+                return;
+            }
             welcomeText.setText(response);
-
             // Check the condition to open the admin view
             AdminController objeto = new AdminController();
-
             Stage stage = new Stage();
             objeto.start(stage);
-
+            // Then close a mainView
             HelloApplication mainView = new HelloApplication();
             Stage primaryMainStage = mainView.getPrimaryStage();
             primaryMainStage.hide();
